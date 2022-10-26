@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "20fb583f-eb36-4e3b-8962-e9958377bb2c",
+		"name": "studycase musik",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get data music",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://musik98.herokuapp.com/users/data/6350c0eccd6688fbdc6332fb",
+					"protocol": "https",
+					"host": [
+						"musik98",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"data",
+						"6350c0eccd6688fbdc6332fb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload music",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "judul",
+							"value": "Late nightt",
+							"type": "default"
+						},
+						{
+							"key": "musik",
+							"type": "file",
+							"src": "/C:/Users/Erindah/Downloads/Harry-Styles-Late-Night-Talking-_Official-Video_.ogg"
+						},
+						{
+							"key": "penyanyi",
+							"value": "Harry stylee",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://musik98.herokuapp.com/users/post",
+					"protocol": "https",
+					"host": [
+						"musik98",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get music",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://musik98.herokuapp.com/music/1666245858968-Harry-Styles-Late-Night-Talking-_Official-Video_.ogg",
+					"protocol": "https",
+					"host": [
+						"musik98",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"music",
+						"1666245858968-Harry-Styles-Late-Night-Talking-_Official-Video_.ogg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get by id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "judul",
+							"value": "Tak Ingin Usai",
+							"type": "default"
+						},
+						{
+							"key": "musik",
+							"type": "file",
+							"src": "/C:/Users/Erindah/Downloads/Keisya-Levronka-Tak-Ingin-Usai-_Official-Lyric-Video_.ogg"
+						},
+						{
+							"key": "penyanyi",
+							"value": "Keisya Levronka",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://musik98.herokuapp.com/users/data/6350e4e3ee95f5641007fe3f",
+					"protocol": "https",
+					"host": [
+						"musik98",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"data",
+						"6350e4e3ee95f5641007fe3f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put by id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "judul",
+							"value": "Tak Ingin Usai",
+							"type": "default"
+						},
+						{
+							"key": "musik",
+							"type": "file",
+							"src": "/C:/Users/Erindah/Downloads/Keisya-Levronka-Tak-Ingin-Usai-_Official-Lyric-Video_.ogg"
+						},
+						{
+							"key": "penyanyi",
+							"value": "Keisya Levronka",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://musik98.herokuapp.com/users/data/6350e4e3ee95f5641007fe3f",
+					"protocol": "https",
+					"host": [
+						"musik98",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"data",
+						"6350e4e3ee95f5641007fe3f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://musik98.herokuapp.com/users/data/6350e4e3ee95f5641007fe3f",
+					"protocol": "https",
+					"host": [
+						"musik98",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"data",
+						"6350e4e3ee95f5641007fe3f"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

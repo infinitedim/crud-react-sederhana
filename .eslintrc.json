@@ -1,0 +1,67 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx"]
+    }
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "arrowFunctions": true,
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "plugins": ["react"],
+  "rules": {
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "react/destructuring-assignment": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/no-array-index-key": "off",
+    "react/prop-types": "off",
+    "import/no-extraneous-dependencies": "off",
+    "jsx-a11y/label-has-associated-control": [
+      "off",
+      {
+        "labelComponents": ["CustomLabel"],
+        "labelAttributes": ["inputLabel"],
+        "controlComponents": ["CustomInput"],
+        "assert": "both",
+        "depth": 3
+      }
+    ],
+    "jsx-a11y/media-has-caption": [
+      "off",
+      {
+        "audio": ["Audio"],
+        "video": ["Video"],
+        "track": ["Track"]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "arrowParens": "always",
+        "endOfLine": "auto",
+        "jsxSingleQuote": false,
+        "semi": true,
+        "singleQuote": false,
+        "printWidth": 80,
+        "tabWidth": 2,
+        "trailingComma": "all"
+      }
+    ]
+  }
+}
