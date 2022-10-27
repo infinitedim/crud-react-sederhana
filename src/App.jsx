@@ -1,6 +1,7 @@
-// import Form from "./components/Form"
 import { useEffect, useState } from "react";
-import Card from "./components/Card";
+import Form from "./Components/Form";
+import Card from "./Components/Card";
+// import Navbar from "./Components/Navbar";
 
 export default function App() {
   const [musics, setMusics] = useState([]);
@@ -15,7 +16,9 @@ export default function App() {
   }, [setMusics]);
 
   return (
-    <div className="App">
+    <main className="App">
+      {/* <Navbar /> */}
+      <Form />
       {musics.map((music, index) => (
         <Card
           key={index}
@@ -24,6 +27,6 @@ export default function App() {
           musik={`https://musik98.herokuapp.com/${music.musik}`}
         />
       ))}
-    </div>
+    </main>
   );
 }
