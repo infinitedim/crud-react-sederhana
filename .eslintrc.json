@@ -27,6 +27,12 @@
   "rules": {
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
+    "no-shadow": "off",
+    "no-console": "off",
+    "no-nested-ternary": "off",
+    "consistent-return": "off",
+    "no-unused-vars": "off",
+    "import/no-cycle": "off",
     "react/destructuring-assignment": "off",
     "react/react-in-jsx-scope": "off",
     "react/no-array-index-key": "off",

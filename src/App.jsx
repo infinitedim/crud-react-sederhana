@@ -1,27 +1,33 @@
-// import Form from "./components/Form"
+/* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from "react";
+import Form from "./components/Form";
 import Card from "./components/Card";
+import Navbar from "./components/Navbar";
+
+const url = "https://musik98.herokuapp.com";
 
 export default function App() {
   const [musics, setMusics] = useState([]);
 
   useEffect(() => {
-    fetch("https://musik98.herokuapp.com/users/data")
+    fetch(`${url}/users/data`)
       .then((res) => res.json())
       .then((res) => {
         setMusics(res.data);
       })
-      .catch((e) => e);
+      .catch((e) => console.error(e));
   }, [setMusics]);
 
   return (
     <div className="App">
-      {musics.map((music, index) => (
+      <Navbar />
+      <Form />
+      {musics.map((music) => (
         <Card
-          key={index}
+          key={music._id}
           judul={music.judul}
           penyanyi={music.penyanyi}
-          musik={`https://musik98.herokuapp.com/${music.musik}`}
+          musik={`${url}/${music.musik}`}
         />
       ))}
     </div>
