@@ -1,0 +1,26 @@
+.card-container
+  display: grid
+  grid-template-columns: repeat(3, auto)
+  grid-template-rows: repeat(auto)
+  gap: 5%
+  .card
+    align-items: center
+    background: color('text')
+    padding: 20px
+    border-radius: 8px
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    height: 100%
+
+@media screen and (max-width: 567px)
+  .card-container
+    grid-template-columns: 1fr
+    width: 100%
+    padding: 20px
+    .card
+      align-items: center
+      justify-content: center
+      width: 100%
+      .btn-container
+        padding: 200px

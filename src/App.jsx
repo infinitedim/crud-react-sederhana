@@ -20,14 +20,16 @@ export default function App() {
   return (
     <main className="App">
       <Form />
-      {musics.map((music) => (
-        <Card
-          key={music._id}
-          judul={music.judul}
-          penyanyi={music.penyanyi}
-          musik={`${url}/${music.musik}`}
-        />
-      ))}
+      <div className="card-container">
+        {musics.map((music) => (
+          <Card
+            key={music._id}
+            judul={music.judul}
+            penyanyi={music.penyanyi}
+            musik={`${url}/${music.musik}`}
+          />
+        ))}
+      </div>
     </main>
   );
 }
