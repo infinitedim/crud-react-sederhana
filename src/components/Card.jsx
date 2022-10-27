@@ -4,9 +4,12 @@ export default function Card(props) {
       <h1 className="judul">{props.judul}</h1>
       <h2 className="penyanyi">{props.penyanyi}</h2>
       <audio controls>
-        <source src={props.musik} type="audio/mp3" />
         <source src={props.musik} type="audio/ogg" />
       </audio>
+      <div className="button-container">
+        <button type="button">Edit</button>
+        <button type="button">Delete</button>
+      </div>
     </div>
   );
 }
