@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from "react";
 import Form from "./components/Form";
@@ -8,19 +9,26 @@ export const url = "https://musik98.herokuapp.com";
 export default function App() {
   const [musics, setMusics] = useState([]);
   const [id, setId] = useState([]);
+  const [selectedId, setSelectedId] = useState("");
 
   const formdata = new FormData(this);
   formdata.append("_id", id);
 
-  useEffect(() => {
+  function getData() {
     fetch(`${url}/users/data`, {
       method: "GET",
     })
-      .then((res) => res.json())
       .then((res) => {
-        setMusics(res.data);
+        return res.json();
+      })
+      .then((res) => {
+        setMusics(() => res.data);
       })
       .catch((e) => e);
+  }
+
+  useEffect(() => {
+    getData();
   }, [setMusics]);
 
   function getId(id) {
@@ -54,7 +62,9 @@ export default function App() {
           <input type="submit" value="Cari" />
         </form>
       </nav>
-      <Form />
+
+      <Form postCallback={getData} />
+
       <div className="card-container">
         {musics.map((music) => (
           <Card
@@ -63,6 +73,8 @@ export default function App() {
             judul={music.judul}
             penyanyi={music.penyanyi}
             musik={`${url}/${music.musik}`}
+            onClickEdit={() => setSelectedId(music._id)}
+            callback={getData}
           />
         ))}
       </div>
