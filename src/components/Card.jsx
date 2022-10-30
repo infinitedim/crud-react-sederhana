@@ -1,56 +1,49 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import { url } from "../App";
+import Form from "./Form";
 
 export default function Card(props) {
-  const [del, setDel] = useState([]);
-  const [edit, setEdit] = useState([]);
-  const MySwal = withReactContent(Swal);
+  const [selectedId, setId] = useState("");
 
-  function editId() {
-    fetch(`${url}/users/data/${edit}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      mode: "no-cors",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setEdit(res);
-        console.log(res);
-      });
-  }
+  const Portal = ({ children }) =>
+    createPortal(children, document.getElementById("card-popup"));
 
-  function delId() {
-    const formdata = new FormData(this);
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
-    formdata.append("_id", del);
-    fetch(`${url}/users/data/${del}`, {
+  function delId(id) {
+    fetch(`${url}/users/data/${id}`, {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
       },
     })
-      .then((res) => res.json())
       .then((res) => {
-        setDel(res);
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
+        if (res.status === 202 || res.status === 200) {
+          Toast.fire({
+            icon: "success",
+            title: "Song Deleted",
+          });
 
+          // refetch ulang datanya ketika berhasil dihapus
+          props.callback();
+        }
+      })
+      .catch((err) => {
         Toast.fire({
-          icon: "success",
-          title: "Data Deleted",
+          icon: "error",
+          title: err?.message ?? "Error",
         });
       });
   }
@@ -59,21 +52,32 @@ export default function Card(props) {
     <div className="card">
       <h1 className="judul">{props.judul}</h1>
       <h2 className="penyanyi">{props.penyanyi}</h2>
+
       <audio controls>
         <source src={props.musik} type="audio/ogg" />
       </audio>
+
       <div className="button-container">
-        <button type="button">Edit</button>
-        <button
-          type="button"
-          onClick={() => {
-            setDel(props._id);
-            delId();
-          }}
-        >
+        <button type="button" onClick={() => setId(props._id)}>
+          Edit
+        </button>
+        <button type="button" onClick={() => delId(props._id)}>
           Delete
         </button>
       </div>
+
+      <Portal>
+        {/* Tinggal dibikin popup aja ya */}
+        {selectedId && (
+          <div className="popup">
+            <Form
+              postCallback={props.callback}
+              selectedId={selectedId}
+              clearSelectedId={() => setId("")}
+            />
+          </div>
+        )}
+      </Portal>
     </div>
   );
 }
