@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from "react";
 import Form from "./components/Form";
@@ -7,23 +8,28 @@ export const url = "https://musik98.herokuapp.com";
 
 export default function App() {
   const [musics, setMusics] = useState([]);
-  const [id, setId] = useState(""); // hanya untuk keyword pencarian
-  const [fetchedData, setData] = useState([]); // menerima data hasil pencarian
+  const [id, setId] = useState([]);
+  const [selectedId, setSelectedId] = useState("");
 
   // const formdata = new FormData(this);
   // formdata.append("_id", id);
 
-  async function getId(id) {
-    await fetch(`${url}/users/data/${id}`, {
+  function getData() {
+    fetch(`${url}/users/data`, {
       method: "GET",
     })
-      .then((res) => res.json())
       .then((res) => {
-        setData(res.data); // setId(res.data) - jgn dicampur aduk sma keyword utk mencari data musiknya ya, mending buat state baru untuk memasukkan data hasil fetch ini
-        // console.log(res.data);
+        return res.json();
+      })
+      .then((res) => {
+        setMusics(() => res.data);
       })
       .catch((e) => e);
   }
+
+  useEffect(() => {
+    getData();
+  }, [setMusics]);
 
   useEffect(() => {
     async function fetchMusic() {
@@ -65,35 +71,21 @@ export default function App() {
           <input type="submit" value="Cari" />
         </form>
       </nav>
-      <Form />
+
+      <Form postCallback={getData} />
 
       <div className="card-container">
-        {/* Conditional rendering */}
-        {fetchedData.length > 0 ? (
-          <>
-            {fetchedData.map((music) => (
-              <Card
-                key={music._id}
-                _id={music._id}
-                judul={music.judul}
-                penyanyi={music.penyanyi}
-                musik={`${url}/${music.musik}`}
-              />
-            ))}
-          </>
-        ) : (
-          <>
-            {musics.map((music) => (
-              <Card
-                key={music._id}
-                _id={music._id}
-                judul={music.judul}
-                penyanyi={music.penyanyi}
-                musik={`${url}/${music.musik}`}
-              />
-            ))}
-          </>
-        )}
+        {musics.map((music) => (
+          <Card
+            key={music._id}
+            _id={music._id}
+            judul={music.judul}
+            penyanyi={music.penyanyi}
+            musik={`${url}/${music.musik}`}
+            onClickEdit={() => setSelectedId(music._id)}
+            callback={getData}
+          />
+        ))}
       </div>
     </main>
   );
