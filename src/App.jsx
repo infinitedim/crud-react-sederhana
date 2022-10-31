@@ -54,7 +54,7 @@ export default function App() {
           action=""
           onSubmit={(e) => {
             e.preventDefault();
-            getId(id);
+            setId(id);
           }}
         >
           <input
