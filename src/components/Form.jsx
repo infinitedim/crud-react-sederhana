@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useRef, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { url } from "../App";
@@ -48,10 +49,9 @@ export default function Form({ postCallback, selectedId, clearSelectedId }) {
 
         const file = new File(
           [res],
-          `${
-            Array.isArray(filename)
-              ? filename.filter((str) => str).join("-")
-              : `${filename}.${fileExt}`
+          `${Array.isArray(filename)
+            ? filename.filter((str) => str).join("-")
+            : `${filename}.${fileExt}`
           }`,
           {
             type: res.type,
@@ -158,10 +158,11 @@ export default function Form({ postCallback, selectedId, clearSelectedId }) {
 
   return (
     <form className="form-post" onSubmit={selectedId ? put : post}>
-      <label htmlFor="judul">
+      <label htmlFor="judul" className="label-judul">
         Judul
         <br />
         <input
+          className="input-judul"
           type="text"
           name="judul"
           id="judul"
@@ -170,10 +171,11 @@ export default function Form({ postCallback, selectedId, clearSelectedId }) {
         />
       </label>
 
-      <label htmlFor="penyanyi">
+      <label htmlFor="penyanyi" className="label-penyanyi">
         Penyanyi
         <br />
         <input
+          className="input-penyanyi"
           type="text"
           name="penyanyi"
           id="penyanyi"
@@ -194,6 +196,7 @@ export default function Form({ postCallback, selectedId, clearSelectedId }) {
         )}
 
         <input
+          className="input-musik"
           type="file"
           name="musik"
           id="musik"
@@ -205,12 +208,12 @@ export default function Form({ postCallback, selectedId, clearSelectedId }) {
             }
           }}
         />
+        <input
+          type="submit"
+          value={selectedId ? "Update song" : "Upload new Song"}
+        />
       </label>
 
-      <input
-        type="submit"
-        value={selectedId ? "Update song" : "Upload new Song"}
-      />
 
       {selectedId && (
         <button

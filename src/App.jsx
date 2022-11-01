@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Form from "./components/Form";
 import Card from "./components/Card";
+import { BrowserRouter, Routes, Route, } from "react-router-dom";
 
 export const url = "https://musik98.herokuapp.com";
 
@@ -10,9 +11,6 @@ export default function App() {
   const [musics, setMusics] = useState([]);
   const [id, setId] = useState([]);
   const [selectedId, setSelectedId] = useState("");
-
-  // const formdata = new FormData(this);
-  // formdata.append("_id", id);
 
   function getData() {
     fetch(`${url}/users/data`, {
@@ -47,46 +45,49 @@ export default function App() {
   }, [setMusics]);
 
   return (
-    <main className="App">
-      <nav className="navbar">
-        <h1>Spotfoto</h1>
-        <form
-          action=""
-          onSubmit={(e) => {
-            e.preventDefault();
-            setId(id);
-          }}
-        >
-          <input
-            type="text"
-            className="search"
-            value={id}
-            onChange={(e) => {
-              // note: setId klo emng hanya untuk menerima value dari input search,
-              //       mending jgn dicampur aduk sma data hasil fetch ya,
-              //       kurang direkomendasiin, soalnya tipe datanya beda(string & array);
-              setId(e.target.value);
+    <BrowserRouter>
+      <main className="App">
+        <nav className="navbar">
+          <h1>Spotfoto</h1>
+          <form
+            action=""
+            onSubmit={(e) => {
+              e.preventDefault();
+              setId(id);
             }}
-          />
-          <input type="submit" value="Cari" />
-        </form>
-      </nav>
+          >
+            <input
+              type="text"
+              className="search"
+              value={id}
+              onChange={(e) => {
+                // note: setId klo emng hanya untuk menerima value dari input search,
+                //       mending jgn dicampur aduk sma data hasil fetch ya,
+                //       kurang direkomendasiin, soalnya tipe datanya beda(string & array);
+                setId(e.target.value);
+              }}
+            />
+            <input type="submit" value="Cari" />
+          </form>
+        </nav>
+        <section className="form-section">
+          <Form postCallback={getData} />
+        </section>
 
-      <Form postCallback={getData} />
-
-      <div className="card-container">
-        {musics.map((music) => (
-          <Card
-            key={music._id}
-            _id={music._id}
-            judul={music.judul}
-            penyanyi={music.penyanyi}
-            musik={`${url}/${music.musik}`}
-            onClickEdit={() => setSelectedId(music._id)}
-            callback={getData}
-          />
-        ))}
-      </div>
-    </main>
+        <div className="card-container">
+          {musics.map((music) => (
+            <Card
+              key={music._id}
+              _id={music._id}
+              judul={music.judul}
+              penyanyi={music.penyanyi}
+              musik={`${url}/${music.musik}`}
+              onClickEdit={() => setSelectedId(music._id)}
+              callback={getData}
+            />
+          ))}
+        </div>
+      </main>
+    </BrowserRouter>
   );
 }

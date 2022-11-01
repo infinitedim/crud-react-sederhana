@@ -71,6 +71,7 @@ export default function Card(props) {
         {selectedId && (
           <div className="popup">
             <Form
+              className="form-popup"
               postCallback={props.callback}
               selectedId={selectedId}
               clearSelectedId={() => setId("")}
