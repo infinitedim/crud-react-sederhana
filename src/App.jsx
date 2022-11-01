@@ -8,11 +8,8 @@ export const url = "https://musik98.herokuapp.com";
 
 export default function App() {
   const [musics, setMusics] = useState([]);
-  const [id, setId] = useState([]);
-  const [selectedId, setSelectedId] = useState("");
-
-  // const formdata = new FormData(this);
-  // formdata.append("_id", id);
+  const [filteredMusic, setFilteredMusic] = useState([]);
+  const [id, setId] = useState("");
 
   function getData() {
     fetch(`${url}/users/data`, {
@@ -26,6 +23,13 @@ export default function App() {
       })
       .catch((e) => e);
   }
+
+  useEffect(() => {
+    if (musics.length === 0) return;
+
+    const filterByKeyword = musics.filter((music) => music.judul.includes(id));
+    setFilteredMusic(filterByKeyword);
+  }, [id]);
 
   useEffect(() => {
     getData();
@@ -50,13 +54,7 @@ export default function App() {
     <main className="App">
       <nav className="navbar">
         <h1>Spotfoto</h1>
-        <form
-          action=""
-          onSubmit={(e) => {
-            e.preventDefault();
-            setId(id);
-          }}
-        >
+        <form onSubmit="">
           <input
             type="text"
             className="search"
@@ -75,17 +73,27 @@ export default function App() {
       <Form postCallback={getData} />
 
       <div className="card-container">
-        {musics.map((music) => (
-          <Card
-            key={music._id}
-            _id={music._id}
-            judul={music.judul}
-            penyanyi={music.penyanyi}
-            musik={`${url}/${music.musik}`}
-            onClickEdit={() => setSelectedId(music._id)}
-            callback={getData}
-          />
-        ))}
+        {filteredMusic.length > 0
+          ? filteredMusic.map((music) => (
+              <Card
+                key={music._id}
+                _id={music._id}
+                judul={music.judul}
+                penyanyi={music.penyanyi}
+                musik={`${url}/${music.musik}`}
+                callback={getData}
+              />
+            ))
+          : musics.map((music) => (
+              <Card
+                key={music._id}
+                _id={music._id}
+                judul={music.judul}
+                penyanyi={music.penyanyi}
+                musik={`${url}/${music.musik}`}
+                callback={getData}
+              />
+            ))}
       </div>
     </main>
   );
